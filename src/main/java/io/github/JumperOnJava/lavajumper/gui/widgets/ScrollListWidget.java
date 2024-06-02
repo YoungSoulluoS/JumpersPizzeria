@@ -34,7 +34,6 @@ public class ScrollListWidget extends AlwaysSelectedEntryListWidget<ScrollListWi
         entry.isHoveredFunction = this::isMouseOver;
         return super.addEntry(entry);
     }
-    @Override
     protected int getScrollbarX() {
         return width-6;
     }

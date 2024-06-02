@@ -25,10 +25,10 @@ public abstract class ScissorMixin {
         var dr = GuiHelper.transformCoords(getMatrices(),rect.getRight(),rect.getBottom());
         return new ScreenRect((int) ul.x, (int) ul.y,(int) (dr.x-ul.x), (int) (dr.y-ul.y));
     }
-    @Inject(method = "scissorContains", at = @At("HEAD"),cancellable = true)
-    private void ignoreScissorContains(int x, int y, CallbackInfoReturnable<Boolean> cir){
-        if(ScrollListWidget.renderingEntries){
-            cir.setReturnValue(true);
-        }
-    }
+//    @Inject(method = "scissorContains", at = @At("HEAD"),cancellable = true)
+//    private void ignoreScissorContains(int x, int y, CallbackInfoReturnable<Boolean> cir){
+//        if(ScrollListWidget.renderingEntries){
+//            cir.setReturnValue(true);
+//        }
+//    }
 }

@@ -24,10 +24,10 @@ public class ScreenMixins {
             while (var5.hasNext())var5.next();
         }
     }
-    @Inject(method = "applyBlur", at = @At("HEAD"),cancellable = true)
-    public void disableBlur(float delta, CallbackInfo ci){
-        if(SubScreen.blurDisabled){
-            ci.cancel();
-        }
-    }
+//    @Inject(method = "applyBlur", at = @At("HEAD"),cancellable = true)
+//    public void disableBlur(float delta, CallbackInfo ci){
+//        if(SubScreen.blurDisabled){
+//            ci.cancel();
+//        }
+//    }
 }
