@@ -1,7 +1,7 @@
 package io.github.JumperOnJava.jjpizza.pizzamenu.configurer;
 
 import io.github.JumperOnJava.jjpizza.pizzamenu.widgets.TextureWidget;
-import io.github.JumperOnJava.lavajumper.common.Translation;
+import io.github.JumperOnJava.lavajumper.common.Tr;
 import io.github.JumperOnJava.lavajumper.gui.AskScreen;
 import io.github.JumperOnJava.lavajumper.gui.widgets.ScrollListWidget;
 import net.minecraft.client.MinecraftClient;
@@ -11,7 +11,6 @@ import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.function.Consumer;
 
@@ -61,9 +60,9 @@ public class TextureListAsk extends AskScreen<Identifier> {
         search.setChangedListener(this::filterList);
         addDrawableChild(search);
 
-        var accept = new ButtonWidget.Builder(Translation.get("jjpizza.texture.accept"),b->success(selectedTexture))
+        var accept = new ButtonWidget.Builder(Tr.get("jjpizza.texture.accept"), b->success(selectedTexture))
                 .dimensions((int) (40+gap),height-20-gap,100,20).build();
-        var cancel = new ButtonWidget.Builder(Translation.get("jjpizza.texture.cancel"),b->fail())
+        var cancel = new ButtonWidget.Builder(Tr.get("jjpizza.texture.cancel"), b->fail())
                 .dimensions((int) (140+gap*1.5),height-20-gap,100,20).build();
         addDrawableChild(accept);
         addDrawableChild(cancel);
@@ -98,7 +97,7 @@ public class TextureListAsk extends AskScreen<Identifier> {
         super.render(context, mouseX, mouseY, delta);
         context.drawText(
                 textRenderer,
-                Translation.get("jjpizza.texture.selected").append(": ").append(selectedTexture.toString()),
+                Tr.get("jjpizza.texture.selected").append(": ").append(selectedTexture.toString()),
                 45,
                 height-30-6-gap/2,
                 0xFFFFFFFF,

@@ -16,11 +16,11 @@ public class ActionTypeRegistry{
     public ActionTypeRegistry(){
         typeFactories = new TreeSet<>();
         addActionType(NullActionProvider::new,null);
-        addActionType(SubPizzaScreenActionProvider::new,null);
         addActionType(ChatMessageActionProvider::new,null);
         if(FabricLoader.getInstance().isModLoaded("malilib")) // lmao hack cause malilib is not released for 1.20.2 but somehow fabric loader thinks it exists
             addActionType(MalilibActionProvider::new,null);
         addActionType(KeybindingActionProvider::new,null);
+        addActionType(SubPizzaScreenActionProvider::new,null);
     }
     private final Set<TypeInfo> typeFactories;
     private List<TypeInfo> asList(){

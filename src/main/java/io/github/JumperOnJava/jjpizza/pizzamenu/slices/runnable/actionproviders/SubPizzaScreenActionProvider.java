@@ -1,10 +1,9 @@
 package io.github.JumperOnJava.jjpizza.pizzamenu.slices.runnable.actionproviders;
 
-import io.github.JumperOnJava.jjpizza.pizzamenu.PizzaScreen;
 import io.github.JumperOnJava.jjpizza.pizzamenu.SubPizzaManager;
 import io.github.JumperOnJava.jjpizza.pizzamenu.slices.runnable.actionregistry.ConfigurableRunnable;
 import io.github.JumperOnJava.lavajumper.common.FileReadWrite;
-import io.github.JumperOnJava.lavajumper.common.Translation;
+import io.github.JumperOnJava.lavajumper.common.Tr;
 import io.github.JumperOnJava.lavajumper.gui.AskScreen;
 import io.github.JumperOnJava.lavajumper.gui.widgets.ScrollListWidget;
 import net.fabricmc.loader.api.FabricLoader;
@@ -13,6 +12,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.text.Text;
+import net.minecraft.util.Colors;
 
 import java.util.Random;
 
@@ -65,15 +65,22 @@ public class SubPizzaScreenActionProvider implements ConfigurableRunnable {
 
         TextFieldWidget nameBox;
         public void init() {
-            nameBox = new TextFieldWidget(client.textRenderer, gap/2, gap/2, width/2-gap, 20, Text.empty());
-            nameBox.setText(target.id);
-            nameBox.setChangedListener(this::updatePizzaId);
-            addDrawableChild(nameBox);
 
-            var button = new ButtonWidget.Builder(Translation.get("jjpizza.subpizza.edit"),this::editSelectedPizza)
+            var button = new ButtonWidget.Builder(Tr.get("jjpizza.subpizza.edit"),this::editSelectedPizza)
                     .dimensions(width/2+gap/2,gap/2,width/2-gap,20)
                     .build();
+            button.active=false;
             addDrawableChild(button);
+
+            nameBox = new TextFieldWidget(client.textRenderer, gap/2, gap/2, width/2-gap, 20, Text.empty());
+            nameBox.setText(target.id);
+            nameBox.setChangedListener(s -> {
+                updatePizzaId(s);
+                button.active = s != null && !s.isBlank();
+            });
+            nameBox.setPlaceholder(Tr.get("jjpizza.subpizza.placeholder").withColor(Colors.GRAY));
+            addDrawableChild(nameBox);
+
             this.list = new ScrollListWidget(client,width-gap,height-gap-2,gap/2,22+gap/2,20+gap/2);
             addDrawableChild(list);
             updateList();
@@ -81,7 +88,8 @@ public class SubPizzaScreenActionProvider implements ConfigurableRunnable {
 
         private void updateList() {
             FileReadWrite.write(FabricLoader.getInstance().getConfigDir().resolve("jjpizza/sub/hackfile.txt").toFile(),"borgir");
-            var files = FabricLoader.getInstance().getConfigDir().resolve("jjpizza/sub").toFile().listFiles();
+            var dir = FabricLoader.getInstance().getConfigDir().resolve("jjpizza/sub").toFile();
+            var files = dir.listFiles();
             if(files == null)
                 return;
             list.children().clear();
@@ -95,6 +103,7 @@ public class SubPizzaScreenActionProvider implements ConfigurableRunnable {
                     nameBox.setText(target.id);
                 }).dimensions(gap/2,0,width-40-gap/2,20).build(),false);
                 entry.addDrawableChild(new ButtonWidget.Builder(Text.literal("X"),b->{
+                    file.delete();
                     updateList();
                 }).dimensions(width-40+gap/2,0,20,20).build(),false);
                 list.addEntry(entry);

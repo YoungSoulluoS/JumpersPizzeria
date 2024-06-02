@@ -5,7 +5,7 @@ import io.github.JumperOnJava.jjpizza.pizzamenu.slices.ConfigurablePizzaSlice;
 import io.github.JumperOnJava.jjpizza.pizzamenu.slices.runnable.RunnableSlice;
 import io.github.JumperOnJava.jjpizza.pizzamenu.widgets.pizza.PizzaSlice;
 import io.github.JumperOnJava.jjpizza.pizzamenu.widgets.pizza.PizzaWidget;
-import io.github.JumperOnJava.lavajumper.common.Translation;
+import io.github.JumperOnJava.lavajumper.common.Tr;
 import io.github.JumperOnJava.lavajumper.gui.AskScreen;
 import io.github.JumperOnJava.lavajumper.gui.widgets.SubScreen;
 import net.minecraft.client.gui.DrawContext;
@@ -46,6 +46,11 @@ public class EntirePizzaConfiguratorScreen extends AskScreen<List<ConfigurablePi
     }
     Runnable saveCallback;
 
+
+    @Override
+    public boolean shouldPause() {
+        return false;
+    }
     @Override
     public void close() {
         super.close();
@@ -101,11 +106,11 @@ public class EntirePizzaConfiguratorScreen extends AskScreen<List<ConfigurablePi
         deletePizza.setupSlices(deleteSlices);
         addDrawableChild(pizza);
         addDrawableChild(deletePizza);
-        this.subScreen = new SubScreen(width/2,0,width/2,height).setScreen(null);
+        this.subScreen = new SubScreen(width/2,0,width/2,height).setScreen(new Screen(Text.empty()) {});
         addDrawableChild(subScreen);
         var hwidth = width/2;
-        addDrawableChild(new ButtonWidget.Builder(Translation.get("jjpizza.edit.save"),b->this.success(editSlices)).dimensions(gap/2,height-20-gap/2,hwidth/2-gap,20).build());
-        addDrawableChild(new ButtonWidget.Builder(Translation.get("jjpizza.edit.cancel"),b->this.fail()).dimensions(gap/2+hwidth/2,height-20-gap/2,hwidth/2-gap,20).build());
+        addDrawableChild(new ButtonWidget.Builder(Tr.get("jjpizza.edit.save"), b->this.success(editSlices)).dimensions(gap/2,height-20-gap/2,hwidth/2-gap,20).build());
+        addDrawableChild(new ButtonWidget.Builder(Tr.get("jjpizza.edit.cancel"), b->this.fail()).dimensions(gap/2+hwidth/2,height-20-gap/2,hwidth/2-gap,20).build());
         rebuildSlices();
     }
 

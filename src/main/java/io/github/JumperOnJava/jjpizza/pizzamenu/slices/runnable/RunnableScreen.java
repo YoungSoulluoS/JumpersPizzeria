@@ -4,7 +4,7 @@ import io.github.JumperOnJava.jjpizza.datatypes.Angle;
 import io.github.JumperOnJava.jjpizza.datatypes.CircleSlice;
 import io.github.JumperOnJava.jjpizza.pizzamenu.configurer.TextureListAsk;
 import io.github.JumperOnJava.jjpizza.pizzamenu.slices.runnable.actionregistry.ConfigurableRunnable;
-import io.github.JumperOnJava.lavajumper.common.Translation;
+import io.github.JumperOnJava.lavajumper.common.Tr;
 import io.github.JumperOnJava.lavajumper.gui.AskScreen;
 import io.github.JumperOnJava.lavajumper.gui.widgets.SubScreen;
 import io.github.JumperOnJava.lavajumper.gui.widgets.SliderWidget;
@@ -47,10 +47,10 @@ public class RunnableScreen extends Screen {
 
     private void initColorConfig() {
         var colorTexts = java.util.List.of(
-                Translation.get("jjpizza.runnable.color.alpha").setStyle(Style.EMPTY.withItalic(true)),
-                Translation.get("jjpizza.runnable.color.red").setStyle(Style.EMPTY.withColor(0xFFFF0000)),
-                Translation.get("jjpizza.runnable.color.green").setStyle(Style.EMPTY.withColor(0xFF00FF00)),
-                Translation.get("jjpizza.runnable.color.blue").setStyle(Style.EMPTY.withColor(0xFF0000FF)));
+                Tr.get("jjpizza.runnable.color.alpha").setStyle(Style.EMPTY.withItalic(true)),
+                Tr.get("jjpizza.runnable.color.red").setStyle(Style.EMPTY.withColor(0xFFFF0000)),
+                Tr.get("jjpizza.runnable.color.green").setStyle(Style.EMPTY.withColor(0xFF00FF00)),
+                Tr.get("jjpizza.runnable.color.blue").setStyle(Style.EMPTY.withColor(0xFF0000FF)));
         for (int i = 0; i < 4; i++) {
             var colorField = new SliderWidget(gap + width / 4 * i, gap * 2 + 20 * 2, width / 4 - gap, 20, colorTexts.get(i), 255d, ((pizzaAction.color >> (3 - i) * 8) & 255), 1);
             var cons = new Consumer<Double>() {
@@ -107,7 +107,7 @@ public class RunnableScreen extends Screen {
         });
         addDrawableChild(iconField);
         var iconSelectField = new ButtonWidget.Builder(
-                Translation.get("jjpizza.runnable.iconselect"), b -> {
+                Tr.get("jjpizza.runnable.iconselect"), b -> {
             AskScreen.ask(
                     new TextureListAsk.Builder()
                             .onSuccess(i->iconField.setText(i.toString()))
@@ -123,7 +123,7 @@ public class RunnableScreen extends Screen {
                 gap + 20,
                 width / 2 - gap,
                 20,
-                Translation.get("jjpizza.runnable.startangle"),
+                Tr.get("jjpizza.runnable.startangle"),
                 360,
                 Math.round(pizzaAction.getSlice().startAngle.getDegree()), 5);
         startAngleField.setChangedListener(d -> {
@@ -136,7 +136,7 @@ public class RunnableScreen extends Screen {
                 gap + 20,
                 width / 2 - gap,
                 20,
-                Translation.get("jjpizza.runnable.endangle"),
+                Tr.get("jjpizza.runnable.endangle"),
                 360,
                 Math.round(pizzaAction.getSlice().endAngle.getDegree()), 5);
         endAngleField.setChangedListener(d -> {
@@ -157,6 +157,6 @@ public class RunnableScreen extends Screen {
     }
 
     public static void setButtonType(ButtonWidget button, ConfigurableRunnable obj) {
-        button.setMessage(Translation.get("jjpizza.actions." + obj.getClass().getSimpleName()));
+        button.setMessage(Tr.get("jjpizza.actions." + obj.getClass().getSimpleName()));
     }
 }

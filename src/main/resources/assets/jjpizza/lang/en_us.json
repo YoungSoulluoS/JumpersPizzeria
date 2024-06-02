@@ -20,6 +20,7 @@
   "jjpizza.runnable.iconselect": "Select icon",
   "jjpizza.texture.accept": "Accept",
   "jjpizza.texture.selected" : "Selected texture",
+  "jjpizza.subpizza.placeholder": "Pizza name",
   "jjpizza.subpizza.edit": "Edit",
   "jjpizza.actions.SubPizzaScreenActionProvider": "Another Pizza",
   "jjpizza.edit.save": "Save",

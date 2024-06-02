@@ -3,7 +3,7 @@ package io.github.JumperOnJava.jjpizza.pizzamenu.slices.runnable.actionproviders
 import io.github.JumperOnJava.jjpizza.pizzamenu.slices.runnable.actionregistry.ConfigurableRunnable;
 import io.github.JumperOnJava.jjpizza.pizzamenu.slices.ConfigurablePizzaSlice;
 import io.github.JumperOnJava.jjpizza.pizzamenu.slices.runnable.actionregistry.ActionTypeRegistry;
-import io.github.JumperOnJava.lavajumper.common.Translation;
+import io.github.JumperOnJava.lavajumper.common.Tr;
 import io.github.JumperOnJava.lavajumper.gui.widgets.ScrollListWidget;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
@@ -13,7 +13,6 @@ import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.text.Text;
 
-import java.security.Key;
 import java.util.*;
 
 public class KeybindingActionProvider implements ConfigurableRunnable, TargetKeybindStorage {
@@ -87,7 +86,7 @@ public class KeybindingActionProvider implements ConfigurableRunnable, TargetKey
 
     @Override
     public Text getHoldText() {
-        return Translation.get("jjpizza.keybind.hold."+(hold?"on":"off"));
+        return Tr.get("jjpizza.keybind.hold."+(hold?"on":"off"));
     }
 
     @Override
@@ -129,7 +128,7 @@ public class KeybindingActionProvider implements ConfigurableRunnable, TargetKey
             this.target = target;
         }
         public void init(){
-            var listWidget = new ScrollListWidget(client,width,height-20,0,24,22);
+            var listWidget = new ScrollListWidget(client,width,height-24*2,0,24,22);
             var searchBox = new TextFieldWidget(client.textRenderer,2,2,width-4,20,Text.empty());
             searchBox.setChangedListener(t -> rebuildList(listWidget,t));
             addDrawableChild(searchBox);

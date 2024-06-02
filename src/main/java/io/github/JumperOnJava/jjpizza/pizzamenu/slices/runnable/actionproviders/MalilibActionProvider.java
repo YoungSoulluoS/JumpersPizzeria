@@ -6,7 +6,7 @@ import fi.dy.masa.malilib.hotkeys.KeyAction;
 import fi.dy.masa.malilib.hotkeys.KeybindCategory;
 import fi.dy.masa.malilib.hotkeys.KeybindMulti;
 import io.github.JumperOnJava.jjpizza.pizzamenu.slices.runnable.actionregistry.ConfigurableRunnable;
-import io.github.JumperOnJava.lavajumper.common.Translation;
+import io.github.JumperOnJava.lavajumper.common.Tr;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 
@@ -78,7 +78,7 @@ public class MalilibActionProvider implements ConfigurableRunnable, TargetKeybin
 
     @Override
     public Text getHoldText() {
-        return Translation.get("jjpizza.keybind.mali.hold."+keyActionType);
+        return Tr.get("jjpizza.keybind.mali.hold."+keyActionType);
     }
 
     public void nextHoldMode() {

@@ -2,11 +2,10 @@ package io.github.JumperOnJava.jjpizza.pizzamenu.slices.runnable.actionproviders
 
 import io.github.JumperOnJava.jjpizza.pizzamenu.slices.runnable.actionregistry.ConfigurableRunnable;
 import io.github.JumperOnJava.jjpizza.pizzamenu.slices.ConfigurablePizzaSlice;
-import io.github.JumperOnJava.lavajumper.common.Translation;
+import io.github.JumperOnJava.lavajumper.common.Tr;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
-import net.minecraft.network.message.SentMessage;
 import net.minecraft.text.Text;
 
 import static io.github.JumperOnJava.jjpizza.pizzamenu.slices.runnable.actionregistry.ActionTypeRegistry.gap;
@@ -51,7 +50,7 @@ public class ChatMessageActionProvider implements ConfigurableRunnable {
             this.target=target;
         }
         protected void init(){
-            var field = new TextFieldWidget(MinecraftClient.getInstance().textRenderer,gap/2,gap/2,width-gap,20, Translation.get("jjpizza.chat.messagehere"));
+            var field = new TextFieldWidget(MinecraftClient.getInstance().textRenderer,gap/2,gap/2,width-gap,20, Tr.get("jjpizza.chat.messagehere"));
             field.setMaxLength(255);
             field.setText(target.message);
             field.setChangedListener(s->target.message=s);

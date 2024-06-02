@@ -7,7 +7,6 @@ import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.widget.AlwaysSelectedEntryListWidget;
 import net.minecraft.client.gui.widget.PressableWidget;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 
 import java.util.List;
@@ -18,9 +17,11 @@ import java.util.function.Consumer;
  * Scroll list widget for general use.
  */
 public class ScrollListWidget extends AlwaysSelectedEntryListWidget<ScrollListWidget.ScrollListEntry> {
+    public static boolean renderingEntries;
+
     public ScrollListWidget(MinecraftClient client, int width, int height, int x, int y, int itemHeight) {
-        super(client,width,height,y,height,itemHeight);
-        setLeftPos(x);
+        super(client,width,height,y,itemHeight);
+        setX(x);
         //setRenderBackground(false);
         //setRenderHeader(false,0);
     }
@@ -34,7 +35,7 @@ public class ScrollListWidget extends AlwaysSelectedEntryListWidget<ScrollListWi
         return super.addEntry(entry);
     }
     @Override
-    protected int getScrollbarPositionX() {
+    protected int getScrollbarX() {
         return width-6;
     }
     @Override
@@ -47,13 +48,13 @@ public class ScrollListWidget extends AlwaysSelectedEntryListWidget<ScrollListWi
         listEntry.setSelected(true);
         selectedEntry=listEntry;
     }
-
-    @Override
-    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        context.enableScissor(left,top,left+width,top+height-1);
-        super.render(context, mouseX, mouseY, delta);
-        context.disableScissor();
-    }
+//
+//    @Override
+//    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+//        context.enableScissor(left,top,left+width,top+height-1);
+//        super.render(context, mouseX, mouseY, delta);
+//        context.disableScissor();
+//    }
 
     /**
      * Scroll list entry. Out of box does nothing but using addDrawableChild method you can add widgets for custom behaviour.
@@ -95,7 +96,9 @@ public class ScrollListWidget extends AlwaysSelectedEntryListWidget<ScrollListWi
                     mouseX+=100000;
                     mouseY+=100000;
                 }
-                d.render(context, mouseX - x, mouseY - y, delta);
+                ScrollListWidget.renderingEntries=true;
+                d.render(context, mouseX-x,mouseY-y, delta);
+                ScrollListWidget.renderingEntries=false;
                 currentX = x;
                 currentY = y;
                 context.getMatrices().pop();

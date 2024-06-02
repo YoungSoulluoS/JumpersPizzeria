@@ -6,7 +6,6 @@ import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.math.Vec2f;
 
 import java.util.LinkedList;
@@ -21,6 +20,7 @@ public class PizzaWidget implements Drawable, Element, Selectable {
     public float radius;
     public float innerRadius;
     public int x,y;
+    private float hitRadius;
 
     /**
      * Creates Pizza widget for slice list
@@ -30,6 +30,7 @@ public class PizzaWidget implements Drawable, Element, Selectable {
      */
     public PizzaWidget setupSize(int radius,int innerRadius, int x, int y) {
         this.radius=radius;
+        this.hitRadius=radius;
         this.innerRadius=innerRadius;
         this.x=x;
         this.y=y;
@@ -89,7 +90,7 @@ public class PizzaWidget implements Drawable, Element, Selectable {
         var center = new Vec2f(x,y);
         var mouse = new Vec2f((float) mouseX, (float) mouseY);
         var distanceSq = center.distanceSquared(mouse);
-        return distanceSq < radius*radius && distanceSq > innerRadius*innerRadius;
+        return distanceSq < hitRadius*hitRadius && distanceSq > innerRadius*innerRadius;
     }
 
     @Override
@@ -109,5 +110,9 @@ public class PizzaWidget implements Drawable, Element, Selectable {
     @Override
     public void appendNarrations(NarrationMessageBuilder builder) {
 
+    }
+
+    public void setupHitRadius(int hitRadius) {
+        this.hitRadius=hitRadius;
     }
 }

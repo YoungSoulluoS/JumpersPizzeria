@@ -22,6 +22,7 @@ import java.util.function.Consumer;
  * When screen is not set up or equals null widget will display empty screen with random color and "nullSubScreen" text in center
  */
 public class SubScreen implements Drawable, ParentElement, Selectable, Widget {
+    public static boolean blurDisabled=false;
     private Screen screen;
     private int x,y,width,height;
     public SubScreen(int x, int y, int width, int height) {
@@ -48,9 +49,12 @@ public class SubScreen implements Drawable, ParentElement, Selectable, Widget {
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         context.getMatrices().push();
         context.getMatrices().translate(x,y,0);
+        blurDisabled=true;
         screen.render(context, mouseX-x, mouseY-y, delta);
+        blurDisabled=false;
         context.getMatrices().pop();
     }
+
 
     @Override
     public void appendNarrations(NarrationMessageBuilder builder) {
@@ -68,7 +72,7 @@ public class SubScreen implements Drawable, ParentElement, Selectable, Widget {
 
     @Override
     public Optional<Element> hoveredElement(double mouseX, double mouseY) {
-        return ParentElement.super.hoveredElement(mouseX, mouseY);
+        return screen.hoveredElement(mouseX, mouseY);
     }
 
     @Override
@@ -93,7 +97,7 @@ public class SubScreen implements Drawable, ParentElement, Selectable, Widget {
 
     @Override
     public void setDragging(boolean dragging) {
-
+        setDragging(dragging);
     }
 
     @Override
@@ -154,10 +158,6 @@ public class SubScreen implements Drawable, ParentElement, Selectable, Widget {
     }
 
 
-    @Override
-    public void focusOn(@Nullable Element element) {
-        ParentElement.super.focusOn(element);
-    }
 
     @Nullable
     @Override
@@ -238,4 +238,5 @@ public class SubScreen implements Drawable, ParentElement, Selectable, Widget {
             context.drawCenteredTextWithShadow(MinecraftClient.getInstance().textRenderer, "nullSubScreen",width/2,height/2,(int)(Math.pow(x + width + y + height,5f)%Integer.MAX_VALUE)&0x00FFFFFF|0x3F000000^0x00FFFFFF);
         }
     }
+
 }

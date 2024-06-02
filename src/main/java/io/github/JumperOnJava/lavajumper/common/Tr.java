@@ -9,7 +9,7 @@ import net.minecraft.text.Text;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Translation {
+public class Tr {
     static Map<String,String> translationMap = new HashMap<>();
 
     /**

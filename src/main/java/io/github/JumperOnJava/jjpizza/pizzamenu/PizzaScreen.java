@@ -2,15 +2,13 @@ package io.github.JumperOnJava.jjpizza.pizzamenu;
 
 import io.github.JumperOnJava.jjpizza.pizzamenu.widgets.pizza.PizzaSlice;
 import io.github.JumperOnJava.jjpizza.pizzamenu.widgets.pizza.PizzaWidget;
-import io.github.JumperOnJava.lavajumper.common.Translation;
+import io.github.JumperOnJava.lavajumper.common.Tr;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.Keyboard;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.util.math.MatrixStack;
+
 import java.util.*;
 import net.minecraft.text.Text;
 
@@ -20,29 +18,39 @@ public class PizzaScreen extends Screen {
     private final PizzaManager manager;
     public PizzaWidget pizzaWidget;
     //ImmutableSlicesList slices;
-    public PizzaScreen(List<? extends PizzaSlice> slices, Screen configuratorScreen,PizzaManager manager) {
+    public PizzaScreen(List<? extends PizzaSlice> slices, Screen configuratorScreen, PizzaManager manager) {
         super(Text.empty());
         this.manager = manager;
         this.slices = slices;
         this.configuratorScreen = configuratorScreen;
     }
+
+    @Override
+    public boolean shouldPause() {
+        return false;
+    }
+
     public void init(){
-        pizzaWidget = new PizzaWidget();
-        pizzaWidget.setupSize((int) (Math.min(width,height)/2f*.8f),(int) (Math.min(width,height)/2f*.8f/8),width/2,height/2);
-        pizzaWidget.setupSlices(slices);
-        addDrawableChild(pizzaWidget);
+
+
         if(configuratorScreen!=null)
-        addDrawableChild(new ButtonWidget.Builder(Translation.get("jjpizza.screen.openconfig"), b->{
+        addDrawableChild(new ButtonWidget.Builder(Tr.get("jjpizza.screen.openconfig"), b->{
             MinecraftClient.getInstance().setScreen(configuratorScreen);
         }).position(10,10).size(60,20).build());
         if(FabricLoader.getInstance().isDevelopmentEnvironment()){
-            addDrawableChild(new ButtonWidget.Builder(Text.literal("Export Translaslation"),b->Translation.generateTranlationMap()).position(10,32).width(120).build());
+            addDrawableChild(new ButtonWidget.Builder(Text.literal("Export Translaslation"),b-> Tr.generateTranlationMap()).position(10,32).width(120).build());
             /*addDrawableChild(new ButtonWidget.Builder(Text.literal("Force load"),b->{
                 //PizzaManager.getManager().actions.clear();
                 manager.actions=manager.load();
             }).position(10,54).width(70).build());*/
 
         }
+
+        pizzaWidget = new PizzaWidget();
+        pizzaWidget.setupSize((int) (Math.min(width,height)/2f*.8f),(int) (Math.min(width,height)/2f*.8f/8),width/2,height/2);
+        pizzaWidget.setupHitRadius(10000);
+        pizzaWidget.setupSlices(slices);
+        addDrawableChild(pizzaWidget);
     }
     private boolean releasedOnce=false;
     @Override
