@@ -45,6 +45,7 @@ public class ScrollListWidget extends AlwaysSelectedEntryListWidget<ScrollListWi
     private ScrollListEntry selectedEntry=new ScrollListEntry();
     public void setSelectedEntry(ScrollListEntry listEntry) {
         selectedEntry.setSelected(false);
+        
         listEntry.setSelected(true);
         selectedEntry=listEntry;
     }
