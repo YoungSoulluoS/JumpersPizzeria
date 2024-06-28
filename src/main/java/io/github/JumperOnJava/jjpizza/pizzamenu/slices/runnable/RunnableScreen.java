@@ -97,7 +97,7 @@ public class RunnableScreen extends Screen {
         iconField.setText(pizzaAction.icon.toString());
         iconField.setChangedListener(s -> {
             try {
-                pizzaAction.icon = new Identifier(s);
+                pizzaAction.icon = Identifier.of(s);
             } catch (InvalidIdentifierException e) {
                 iconField.setEditableColor(0xffff7057);
             } finally {

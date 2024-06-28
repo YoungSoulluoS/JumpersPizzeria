@@ -44,7 +44,7 @@ public class TextureListAsk extends AskScreen<Identifier> {
         }
     }
 
-    private Identifier selectedTexture = new Identifier("minecraft","empty");
+    private Identifier selectedTexture = Identifier.of("empty");
 
     protected TextureListAsk(Consumer<Identifier> onSuccess, Runnable onFail){
         super(onSuccess, onFail);
@@ -66,7 +66,7 @@ public class TextureListAsk extends AskScreen<Identifier> {
                 .dimensions((int) (140+gap*1.5),height-20-gap,100,20).build();
         addDrawableChild(accept);
         addDrawableChild(cancel);
-        selectedTextureWidget = new TextureWidget(new Identifier(""),gap/2,height-40-gap/2,40,40);
+        selectedTextureWidget = new TextureWidget(Identifier.of(""),gap/2,height-40-gap/2,40,40);
         addDrawableChild(selectedTextureWidget);
     }
 
@@ -78,7 +78,7 @@ public class TextureListAsk extends AskScreen<Identifier> {
             if(!id.toLowerCase().contains(s.toLowerCase()))
                 continue;
             var button = new ButtonWidget.Builder(Text.literal(id),b->{
-                this.selectedTexture = new Identifier(b.getMessage().getString());
+                this.selectedTexture = Identifier.of(b.getMessage().getString());
                 selectedTextureWidget.setTexture(selectedTexture);
             })
                     .position(40,10)
