@@ -41,8 +41,7 @@ public class PizzaWidgetSlice implements Drawable, Element, Selectable {
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableCull();
 
-        BufferBuilder bufferBuilder = tessellator.getBuffer();
-        bufferBuilder.begin(VertexFormat.DrawMode.TRIANGLE_STRIP, VertexFormats.POSITION_COLOR);
+        BufferBuilder bufferBuilder = tessellator.begin(VertexFormat.DrawMode.TRIANGLE_STRIP, VertexFormats.POSITION_COLOR);
 
         var peekMatrix = context.getMatrices().peek().getPositionMatrix();
 
@@ -54,16 +53,17 @@ public class PizzaWidgetSlice implements Drawable, Element, Selectable {
             for (var a = circleSlice.startAngle.getRadian();
                  a < circleSlice.endAngle.getRadian()+(circleSlice.startAngle.getRadian()> circleSlice.endAngle.getRadian() ? (2*PI) : 0);
                  a += res) {
-                bufferBuilder.vertex(peekMatrix, (float) (-cos(a) * parent.radius), (float) (-sin(a) * parent.radius), 0f).color(pizzaSlice.getBackgroundColor()).next();
-                bufferBuilder.vertex(peekMatrix, (float) (-cos(a) * parent.innerRadius), (float) (-sin(a) * parent.innerRadius), 0f).color(pizzaSlice.getBackgroundColor()).next();
+                bufferBuilder.vertex(peekMatrix, (float) (-cos(a) * parent.radius), (float) (-sin(a) * parent.radius), 0f).color(pizzaSlice.getBackgroundColor());
+                bufferBuilder.vertex(peekMatrix, (float) (-cos(a) * parent.innerRadius), (float) (-sin(a) * parent.innerRadius), 0f).color(pizzaSlice.getBackgroundColor());
             }
-            bufferBuilder.vertex(peekMatrix, (float) (-cos(circleSlice.endAngle.getRadian()) * parent.radius), (float) (-sin(circleSlice.endAngle.getRadian()) * parent.radius), 0f).color(pizzaSlice.getBackgroundColor()).next();
-            bufferBuilder.vertex(peekMatrix, (float) (-cos(circleSlice.endAngle.getRadian()) * parent.innerRadius), (float) (-sin(circleSlice.endAngle.getRadian()) * parent.innerRadius), 0f).color(pizzaSlice.getBackgroundColor()).next();
+            bufferBuilder.vertex(peekMatrix, (float) (-cos(circleSlice.endAngle.getRadian()) * parent.radius), (float) (-sin(circleSlice.endAngle.getRadian()) * parent.radius), 0f).color(pizzaSlice.getBackgroundColor());
+            bufferBuilder.vertex(peekMatrix, (float) (-cos(circleSlice.endAngle.getRadian()) * parent.innerRadius), (float) (-sin(circleSlice.endAngle.getRadian()) * parent.innerRadius), 0f).color(pizzaSlice.getBackgroundColor());
         }
+        BuiltBuffer end = bufferBuilder.end();
+        end.close();
         RenderSystem.setShader(GameRenderer::getPositionColorProgram);
         RenderSystem.setShaderColor(1f,1f,1f,1f);
 
-        tessellator.draw();
 
         RenderSystem.enableCull();
         RenderSystem.disableBlend();

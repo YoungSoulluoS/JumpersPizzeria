@@ -28,7 +28,7 @@ public class RunnableSlice implements ConfigurablePizzaSlice {
     @Expose
     ConfigurableRunnable onRightClick = new NullActionProvider(false);
     @Expose
-    Identifier icon = new Identifier("textures/item/diamond.png");
+    Identifier icon = Identifier.of(Identifier.DEFAULT_NAMESPACE,"textures/item/diamond.png");
 
     @Override
     public PizzaManager getManager() {
