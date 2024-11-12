@@ -9,7 +9,7 @@ public interface PizzaSlice {
     default void onRightClick(){}
     default void onLeftClick(){}
     default void onScroll(double scrollX,double scrollY){}
-    default int getBackgroundColor(){return ColorHelper.Argb.getArgb(255,0,0,0);}
+    default int getBackgroundColor(){return ColorHelper.getArgb(255,0,0,0);}
     /**
      * Icon texture identifier. Can return null to not display anything
      * @return

@@ -1,12 +1,12 @@
 package io.github.JumperOnJava.jjpizza.pizzamenu.widgets.pizza;
 
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.util.math.Vec2f;
+import net.minecraft.util.profiler.Profilers;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -46,7 +46,7 @@ public class PizzaWidget implements Drawable, Element, Selectable {
     public void render(DrawContext context, int mouseX, int mouseY, float delta){
         context.getMatrices().push();
         //ActionTextRenderer.sendChatMessag*e("x: ",mouseX," y: ",mouseY);
-        var prof = MinecraftClient.getInstance().getProfiler();
+        var prof = Profilers.get();
         prof.push("Pizza");
         context.getMatrices().translate(x, y,0);
         slices.forEach(slice->{
