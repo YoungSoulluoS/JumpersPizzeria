@@ -5,7 +5,6 @@ import io.github.JumperOnJava.lavajumper.gui.widgets.SubScreen;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonWidget;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -25,7 +24,7 @@ public class ScreenMixins {
         }
     }
     @Inject(method = "applyBlur", at = @At("HEAD"),cancellable = true)
-    public void disableBlur(float delta, CallbackInfo ci){
+    public void disableBlur(CallbackInfo ci){
         if(SubScreen.blurDisabled){
             ci.cancel();
         }

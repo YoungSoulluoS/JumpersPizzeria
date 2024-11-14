@@ -61,14 +61,14 @@ public class RunnableScreen extends Screen {
                     {
                         try {
                             int[] argb = {0, 0, 0, 0};
-                            argb[0] = ColorHelper.Argb.getAlpha(pizzaAction.color);
-                            argb[1] = ColorHelper.Argb.getRed(pizzaAction.color);
-                            argb[2] = ColorHelper.Argb.getGreen(pizzaAction.color);
-                            argb[3] = ColorHelper.Argb.getBlue(pizzaAction.color);
+                            argb[0] = ColorHelper.getAlpha(pizzaAction.color);
+                            argb[1] = ColorHelper.getRed(pizzaAction.color);
+                            argb[2] = ColorHelper.getGreen(pizzaAction.color);
+                            argb[3] = ColorHelper.getBlue(pizzaAction.color);
 
                             argb[id] = (int) (double) d;
 
-                            pizzaAction.color = ColorHelper.Argb.getArgb(argb[0], argb[1], argb[2], argb[3]);
+                            pizzaAction.color = ColorHelper.getArgb(argb[0], argb[1], argb[2], argb[3]);
                             update();
                         } catch (Exception ignored) {
 

@@ -56,7 +56,7 @@ public class RunnableSlice implements ConfigurablePizzaSlice {
         this.name=name;
         setSlice(circleSlice);
         var r = new Random();
-        this.color = ColorHelper.Argb.getArgb(255,r.nextInt(255),r.nextInt(255),r.nextInt(255));
+        this.color = ColorHelper.getArgb(255,r.nextInt(255),r.nextInt(255),r.nextInt(255));
         //ActionTextRenderer.sendChatMessage(Integer.toHexString(this.color));
         this.manager = manager;
     }
